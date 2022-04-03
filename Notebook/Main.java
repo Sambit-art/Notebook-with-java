@@ -1,7 +1,10 @@
+package Notebook;
+
 /*Created by Sambit Bhattacharyya 02/04/2022
  * 
  * jar used-> mysql-connector-java-8.0.28
  */
+
 
 
 import java.awt.EventQueue;
