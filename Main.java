@@ -30,7 +30,18 @@ class btn extends JButton{
 	public btn(String name,Color color) {
 		super(name);
 		super.setBackground(color);
+		super.setForeground(Color.WHITE);
+		super.setFont(new MyFont());
 	}
+}
+
+class MyFont extends Font{
+	public static String FontName="Script MT Bold";
+	public static int FontSize=18;
+	public MyFont() {
+		super(FontName,Font.PLAIN,FontSize);
+	}
+	
 }
 
 public class Main {
@@ -41,6 +52,12 @@ public class Main {
 	private JTextArea createNote;
 	private JTextArea outputResult;
 	private JList<String> tArea;
+	public Color red=new Color(240, 70, 89);
+	public Color primary=new Color(70, 138, 121);
+	public Color bg=new Color(137, 232, 208);
+	public Color orange=new Color(186, 135, 15);
+	public Color select = new Color(229, 174, 230);
+	public Color highlight=new Color(18, 219, 186);
 	/**
 	 * Launch the application.
 	 */
@@ -57,17 +74,11 @@ public class Main {
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
+	
 	public Main() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -83,6 +94,7 @@ public class Main {
 		
 		JPanel titlePanel_1 = new JPanel();
 		titlePanel_1.setBounds(0, 0, 810, 64);
+		titlePanel_1.setBackground(highlight);
 		panel.add(titlePanel_1);
 		titlePanel_1.setLayout(null);
 		
@@ -93,15 +105,19 @@ public class Main {
 		
 		JPanel writePanel = new JPanel();
 		writePanel.setBounds(496, 63, 314, 437);
+		writePanel.setBackground(bg);
 		panel.add(writePanel);
 		writePanel.setLayout(null);
 		
 		JLabel lblCreateNewNote = new JLabel("Create New Note");
-		lblCreateNewNote.setBounds(29, 30, 212, 14);
+		lblCreateNewNote.setFont(new MyFont());
+		lblCreateNewNote.setBackground(bg);
+		lblCreateNewNote.setBounds(29, 11, 212, 33);
 		writePanel.add(lblCreateNewNote);
 		
 		createNote = new JTextArea();
 		createNote.setText("Write Your Note");
+		createNote.setFont(new Font("Dialog", 1, 15));
 		JScrollPane inp = new JScrollPane(createNote,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		inp.setBounds(23, 55, 259, 239);
 		writePanel.add(inp);
@@ -110,6 +126,7 @@ public class Main {
 		
 		outputResult = new JTextArea();
 		outputResult.setText("Output Result Goes Here");
+		outputResult.setFont(new Font("Dialog", 1, 15));
 		JScrollPane otp = new JScrollPane(outputResult,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		otp.setBounds(23, 305, 259, 110);
 		writePanel.add(otp);
@@ -117,10 +134,14 @@ public class Main {
 		
 		JPanel readPanel = new JPanel();
 		readPanel.setBounds(0, 63, 496, 437);
+		readPanel.setBackground(bg);
 		panel.add(readPanel);
 		readPanel.setLayout(null);
 		Object[] notes=  Query.notes.toArray();
 		tArea=new JList<String>();
+		tArea.setSelectionForeground(new Color(102, 33, 102));
+		tArea.setSelectionBackground(new Color(237, 218, 237));
+		tArea.setForeground(Color.BLACK);
 		tArea.setFont(new Font("Tahoma", Font.BOLD, 16));
 		tArea.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tArea.setVisibleRowCount(4);
@@ -152,10 +173,11 @@ public class Main {
 		readPanel.add(scrollPane);
 		
 		JLabel lblYourAllNote = new JLabel("Your All Note Visible Here");
-		lblYourAllNote.setBounds(27, 23, 212, 14);
+		lblYourAllNote.setFont(new MyFont());
+		lblYourAllNote.setBounds(27, 11, 212, 34);
 		readPanel.add(lblYourAllNote);
 		
-		btnDelete = new btn("Delete",Color.RED);
+		btnDelete = new btn("Delete",red);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = tArea.getSelectedIndex();
@@ -178,7 +200,7 @@ public class Main {
 		btnDelete.setBounds(27, 370, 89, 23);
 		readPanel.add(btnDelete);
 		
-		btn btnUpdate = new btn("Delete", Color.ORANGE);
+		btn btnUpdate = new btn("Delete", orange);
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -187,7 +209,7 @@ public class Main {
 		btnUpdate.setBounds(195, 370, 89, 23);
 		readPanel.add(btnUpdate);
 		
-		btn btnCreate = new btn("Delete", Color.GREEN);
+		btn btnCreate = new btn("Delete", primary);
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String newNote = createNote.getText();
